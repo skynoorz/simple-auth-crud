@@ -1,0 +1,45 @@
+<div class="card bg-dark text-white">
+  <div class="card-header">{{title}}</div>
+  <div class="card-body">
+    <form>
+      <div *ngIf="!user.id" class="form-group row mt-3">
+        <label for="input-username" class="col-form-label col-sm-2">Username</label>
+        <div id="input-username" class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="user.username" name="username">
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <label for="input-balance" class="col-form-label col-sm-2">Balance</label>
+        <div id="input-balance" class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="user.balance" name="balance">
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <label for="input-birthday" class="col-form-label col-sm-2">Birthday</label>
+        <div id="input-birthday" class="col-sm-6">
+          <input type="date" class="form-control" [(ngModel)]="user.birthday" name="birthday">
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <label for="input-email" class="col-form-label col-sm-2">Joining</label>
+        <div id="input-email" class="col-sm-6">
+          <input type="date" class="form-control" [(ngModel)]="user.joining" name="joining">
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <label for="input-password" class="col-form-label col-sm-2">Password</label>
+        <div id="input-password" class="col-sm-6">
+          <input type="text" class="form-control" [(ngModel)]="user.password" name="password">
+        </div>
+      </div>
+      <div class="form-group row mt-3">
+        <div class="col-sm-6">
+          <button *ngIf="!user.id else elseBlock" class="btn-primary btn" role="button" (click)="create()">Crear</button>
+          <ng-template #elseBlock>
+            <button class="btn-primary btn" role="button" (click)="update()">Editar</button>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
