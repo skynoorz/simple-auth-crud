@@ -5,12 +5,15 @@ import com.crud.bo.interviewtest.models.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,18 +43,30 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), true, true, true, true, authorities);
     }
 
+    public List<User> findByUsernameContaining(String username){
+        List<User> users = userDao.findByUsernameContaining(username);
+        return users;
+
+    }
+
     public List<User> findAll() {
         return (List<User>) this.userDao.findAll();
+    }
+
+    public Page<User> findAll(Pageable pageable){
+        return this.userDao.findAll(pageable);
     }
 
     public User findById(Long id) {
         return this.userDao.findById(id).orElse(null);
     }
 
+    @Transactional
     public User save(User user) {
         return this.userDao.save(user);
     }
 
+    @Transactional
     public void delete(Long id) {
         this.userDao.deleteById(id);
     }

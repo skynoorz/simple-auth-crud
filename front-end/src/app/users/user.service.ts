@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {User} from "./user";
 import {Router} from "@angular/router";
-import {catchError, map} from "rxjs/operators";
+import {catchError, map, tap} from "rxjs/operators";
 import swal from "sweetalert2";
 import {AuthService} from "./auth.service";
 
@@ -12,7 +12,7 @@ import {AuthService} from "./auth.service";
 })
 export class UserService {
 
-  private urlEndpoint: string = 'http://localhost:8080';
+  private urlEndpoint: string = 'http://localhost:8080/api/users';
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
 
@@ -28,7 +28,7 @@ export class UserService {
     }
     if (e.status == 403) {
       // this.router.navigate(['/login']);
-      swal.fire("Error", "Access denied.",'warning');
+      swal.fire("Error", "Access denied.", 'warning');
       return true;
     }
     return false;
@@ -42,7 +42,7 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.urlEndpoint + "/api/users").pipe(
+    return this.http.get<User[]>(this.urlEndpoint).pipe(
       catchError(e => {
         this.isNotAuthorized(e)
         return throwError(e);
@@ -50,12 +50,23 @@ export class UserService {
     );
   }
 
+  getUsersPage(page: number): Observable<any> {
+    return this.http.get(`${this.urlEndpoint}/page/${page}`, {headers: this.addAuthorizationHeader()}).pipe(
+      tap(((response: any) =>{
+        console.log('ServiceTap: 1');
+        (response.content as User[]).forEach(user=>{
+          console.log(user.username);
+        })
+      }))
+    )
+  }
+
   getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.urlEndpoint}/api/users/${id}`, {headers: this.addAuthorizationHeader()})
+    return this.http.get<User>(`${this.urlEndpoint}/${id}`, {headers: this.addAuthorizationHeader()})
   }
 
   create(user: User): Observable<User> {
-    return this.http.post<User>(this.urlEndpoint + "/api/users", user, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.post<User>(this.urlEndpoint, user, {headers: this.addAuthorizationHeader()}).pipe(
       catchError(e => {
         if (this.isNotAuthorized(e)) {
           return throwError(e);
@@ -68,7 +79,7 @@ export class UserService {
   }
 
   update(user: User): Observable<any> {
-    return this.http.put<any>(`${this.urlEndpoint}/api/users/${user.id}`, user, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.put<any>(`${this.urlEndpoint}/${user.id}`, user, {headers: this.addAuthorizationHeader()}).pipe(
       catchError(e => {
         if (this.isNotAuthorized(e)) {
           return throwError(e);
@@ -81,6 +92,15 @@ export class UserService {
   }
 
   delete(id: number): Observable<User> {
-    return this.http.delete<User>(`${this.urlEndpoint}/api/users/${id}`, {headers: this.addAuthorizationHeader()});
+    return this.http.delete<User>(`${this.urlEndpoint}/${id}`, {headers: this.addAuthorizationHeader()});
+  }
+
+  getUsersContaining(username: string) :Observable<User[]>{
+    return this.http.get<User[]>(`${this.urlEndpoint}/search/${username}`, {headers: this.addAuthorizationHeader()}).pipe(
+      catchError(e => {
+        this.isNotAuthorized(e)
+        return throwError(e);
+      })
+    );
   }
 }
