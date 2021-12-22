@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "./user.service";
 import {User} from "./user";
 import swal from "sweetalert2";
+import {AuthService} from "./auth.service";
 
 @Component({
   selector: 'app-users',
@@ -11,7 +12,8 @@ import swal from "sweetalert2";
 export class UsersComponent implements OnInit {
 
   users: User[] = [];
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              public authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadUsers()
@@ -43,11 +45,14 @@ export class UsersComponent implements OnInit {
             'success'
           )
         },error => {
-          swal.fire(
-            'Oops!',
-            'something went wrong.',
-            'error'
-          )
+          if (error.status == 403){
+            swal.fire(
+              'Oops!',
+              'It seems you dont have access to it. Are you logged as admin?',
+              'error'
+            )
+          }
+          console.log(error.message);
         })
 
       }

@@ -1,10 +1,10 @@
 <div class="container">
   <div class="card mb-3">
-    <div class="card-header">Users</div>
+    <div class="card-header text-center" style="font-size: large;">LIST OF USERS</div>
     <div class="card-body text-primary">
-      <h5 class="card-title">List of Users</h5>
+<!--      <h5 class="card-title" *ngIf="authService.hasRole('ROLE_ADMIN')">List of Users</h5>-->
       <div class="my-2 text-left">
-        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/users/form']">
+        <button class="btn btn-rounded btn-primary" type="button" *ngIf="authService.hasRole('ROLE_ADMIN')" [routerLink]="['/users/form']">
           New User
         </button>
       </div>
@@ -23,7 +23,7 @@
           <th>
             edit
           </th>
-          <th>delete</th>
+          <th *ngIf="authService.hasRole('ROLE_ADMIN')">delete</th>
         </tr>
         </thead>
         <tbody>
@@ -37,8 +37,8 @@
           <td>
             <button type="button" name="editar" [routerLink]="['/users/form', user.id]" class="btn btn-primary btn-sm">edit</button>
           </td>
-          <td>
-            <button type="button" name="eliminar" (click)='delete(user)' class="btn btn-danger btn-sm">delete</button>
+          <td *ngIf="authService.hasRole('ROLE_ADMIN')">
+            <button  type="button" name="eliminar" (click)='delete(user)' class="btn btn-danger btn-sm">delete</button>
           </td>
         </tr>
         </tbody>

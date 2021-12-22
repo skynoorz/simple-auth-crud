@@ -1,0 +1,14 @@
+<div class="justify-content-center" style="display: flex">
+  <div class="card col-sm-6 text-center">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+      <form method="post" (ngSubmit)="login()">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="user.username" class="form-control" name="username" id="username" placeholder="Username" autofocus required>
+          <input type="text" [(ngModel)]="user.password" class="form-control mt-2" name="password" id="password" placeholder="Password" required>
+          <input type="submit" class="btn btn-lg btn-dark  mt-2" style="width: 100%" value="Login">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

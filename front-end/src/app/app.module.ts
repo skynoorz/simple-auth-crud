@@ -8,12 +8,14 @@ import {RouterModule, Routes} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import { FormComponent } from './users/form/form.component';
 import {FormsModule} from "@angular/forms";
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/users', pathMatch: 'full'},
   {path: 'users', component: UsersComponent},
   {path: 'users/form', component: FormComponent},
-  {path: 'users/form/:id', component: FormComponent}
+  {path: 'users/form/:id', component: FormComponent},
+  {path: 'login', component: LoginComponent}
 ]
 
 @NgModule({
@@ -21,7 +23,8 @@ const routes: Routes = [
     AppComponent,
     NavbarComponent,
     UsersComponent,
-    FormComponent
+    FormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -11,8 +11,20 @@
         </li>
       </ul>
       <form class="d-flex">
-        <button class="btn btn-outline-light" type="button" [routerLink]="['/login']">Login</button>
+        <button *ngIf="!authService.isAuthenticated();" class="btn btn-outline-light" type="button" [routerLink]="['/login']" >Login</button>
+        <button *ngIf="authService.isAuthenticated()" class="btn btn-secondary" type="button" (click)="logout()">Logout</button>
       </form>
+<!--      <div *ngIf="authService.isAuthenticated()" class="dropdown">-->
+<!--        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--          {{authService.user.username}}-->
+<!--        </a>-->
+
+<!--        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
+<!--          <li><a class="dropdown-item" href="#">Action</a></li>-->
+<!--          <li><a class="dropdown-item" href="#">Another action</a></li>-->
+<!--          <li><a class="dropdown-item" href="#">Something else here</a></li>-->
+<!--        </ul>-->
+<!--      </div>-->
     </div>
   </div>
 </nav>

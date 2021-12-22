@@ -5,4 +5,5 @@ export class User {
   joining: Date;
   username: string;
   password: string;
+  roles: string[]=[];
 }

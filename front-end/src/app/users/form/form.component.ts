@@ -11,7 +11,7 @@ import swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
   user: User = new User();
-  title: string = "Formulario Usuario";
+  title: string = "User form";
 
   constructor(private userService: UserService,
               private router: Router,
@@ -46,6 +46,7 @@ export class FormComponent implements OnInit {
   }
 
   update():void{
+    console.log("userToSend: ",this.user);
     this.userService.update(this.user).subscribe(response=>{
       console.log("user: ",response.cliente);
       swal.fire(

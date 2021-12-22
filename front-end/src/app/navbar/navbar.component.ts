@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../users/auth.service";
+import {Router} from "@angular/router";
+import swal from "sweetalert2";
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  logout() :void{
+    this.authService.logout();
+    swal.fire('Logout', 'Logout successfully','success');
+    this.router.navigate(['/login']);
+  }
 }

@@ -1,7 +1,12 @@
-INSERT INTO roles (name) VALUES ('ADMIN');
-INSERT INTO roles (name) VALUES ('SUPERVISOR');
+INSERT INTO roles (name) VALUES ('ROLE_ADMIN');
+INSERT INTO roles (name) VALUES ('ROLE_SUPERVISOR');
 INSERT INTO users (username, password, birthday, joining, balance) VALUES ('admin', '$2a$12$/LzaaS/KwyEgNgY.AUqFXOmHclzkfYfyxwCF7jpuytBkjgWy9wvYa', '1994-01-12', '2009-04-26', 1000);
 INSERT INTO users (username, password, birthday, joining, balance) VALUES ('ron', '$2a$12$U8EIsOY1VOx2Q1nfZXVt/u.cDXGndC8We2CSZZuXkIj793zOj1HRK', '1995-03-18', '2021-12-20', 400);
+INSERT INTO users (username, password, birthday, joining, balance) VALUES ('moustafa', '$2a$12$9GQJX9ChfSxNQ6eo/xwDGeXcziXp2akeGQbiCls.JlNYGuQRy02Nu', '1990-08-25', '2021-10-10', 2300);
+INSERT INTO users (username, password, birthday, joining, balance) VALUES ('daniel', '$2a$12$Z.z//cRKEDRPBAJxLHTkuu92.1eGkw9Fer4k/6Ap0GGQ4GG4KtAZO', '1980-03-18', '2020-11-11', 1300);
 INSERT INTO user_authorities (user_id, rol_id) VALUES (1,1);
 INSERT INTO user_authorities (user_id, rol_id) VALUES (1,2);
 INSERT INTO user_authorities (user_id, rol_id) VALUES (2,2);
+INSERT INTO user_authorities (user_id, rol_id) VALUES (3,1);
+INSERT INTO user_authorities (user_id, rol_id) VALUES (3,2);
+INSERT INTO user_authorities (user_id, rol_id) VALUES (4,2);
