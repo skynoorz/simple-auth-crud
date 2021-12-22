@@ -10,6 +10,7 @@ import { FormComponent } from './users/form/form.component';
 import {FormsModule} from "@angular/forms";
 import { LoginComponent } from './login/login.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+import {IconsModule, TableModule} from "angular-bootstrap-md";
 
 const routes: Routes = [
   {path: '', redirectTo: '/users', pathMatch: 'full'},
@@ -33,7 +34,9 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    TableModule,
+    IconsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

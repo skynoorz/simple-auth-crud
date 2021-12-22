@@ -4,6 +4,7 @@ import com.crud.bo.interviewtest.models.entity.Role;
 import com.crud.bo.interviewtest.models.entity.User;
 import com.crud.bo.interviewtest.models.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,9 @@ import java.util.Map;
 @RequestMapping("/api")
 public class UserController {
 
+    @Value("${user.per.page}")
+    private Integer numberOfUsers;
+
     @Autowired
     private UserService userService;
 
@@ -31,7 +35,8 @@ public class UserController {
 
     @GetMapping("/users/page/{page}")
     public Page<User> pageable(@PathVariable Integer page) {
-        return userService.findAll(PageRequest.of(page, 5));
+
+        return userService.findAll(PageRequest.of(page, this.numberOfUsers));
     }
 
     @GetMapping("/users/{id}")

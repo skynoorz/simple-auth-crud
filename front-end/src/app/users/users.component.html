@@ -12,15 +12,15 @@
       <div *ngIf="users?.length == 0" class="alert alert-info">
         No hay registros en la base de datos!
       </div>
-      <table class="table table-bordered table-striped" *ngIf="users.length > 0">
+      <table mdbTable class="z-depth-1" *ngIf="users.length > 0">
         <thead>
         <tr>
-          <th>id</th>
-          <th>username</th>
-          <th>password</th>
-          <th>joining</th>
-          <th>birthday</th>
-          <th>balance</th>
+          <th [mdbTableSort]="users" sortBy="id">id<mdb-icon fas icon="sort"></mdb-icon></th>
+          <th [mdbTableSort]="users" sortBy="username">username<mdb-icon fas icon="sort"></mdb-icon></th>
+          <th [mdbTableSort]="users">password</th>
+          <th [mdbTableSort]="users" sortBy="joining">joining<mdb-icon fas icon="sort"></mdb-icon></th>
+          <th [mdbTableSort]="users" sortBy="birthday">birthday<mdb-icon fas icon="sort"></mdb-icon></th>
+          <th [mdbTableSort]="users" sortBy="balance">balance<mdb-icon fas icon="sort"></mdb-icon></th>
           <th>
             edit
           </th>
@@ -44,13 +44,12 @@
         </tr>
         </tbody>
       </table>
-      <div style="display: flex; justify-content: space-between">
+      <div style="display: flex; justify-content: space-between" class="mt-3">
         <paginator-nav *ngIf="paginator" [paginator]="paginator"></paginator-nav>
         <button class="btn btn-rounded btn-success" type="button" *ngIf="authService.hasRole('ROLE_ADMIN')" [routerLink]="['/users/form']">
           New User
         </button>
       </div>
-
     </div>
   </div>
 </div>
